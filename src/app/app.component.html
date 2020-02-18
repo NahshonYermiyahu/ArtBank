@@ -1,343 +1,75 @@
 <div class="container">
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="personsRes">
 
-      <!--        <ng-container-->
-      <!--          *ngFor="let person of displayedColumns"-->
-      <!--          matColumnDef="{{person}}">-->
-      <!--          <th mat-header-cell *matHeaderCellDef class="col" id="{{person}}">{{person}}</th>-->
-      <!--          <td mat-cell *matCellDef="let row" class="row">{{row[person]}}</td>-->
-      <!--        </ng-container>-->
+  <div *ngIf="isEditData && isAddData && isBlock">
 
-      <ng-container matColumnDef="N">
-        <th mat-header-cell *matHeaderCellDef class="col"></th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.N}} </td>
-      </ng-container>
+    <header>
+      <h1>Таблица данных</h1>
+    </header>
 
-      <ng-container matColumnDef="CARD">
-        <th mat-header-cell *matHeaderCellDef class="col">CARD</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.CARD}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="LASTNAME">
-        <th mat-header-cell *matHeaderCellDef class="col">LASTNAME</th>
-        <td mat-cell *matCellDef="let row" class="fio row"> {{row.LASTNAME}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="FIRSTNAME">
-        <th mat-header-cell *matHeaderCellDef class="col">FIRSTNAME</th>
-        <td mat-cell *matCellDef="let row" class="fio row"> {{row.FIRSTNAME}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="PATRONYMIC">
-        <th mat-header-cell *matHeaderCellDef class="col">PATRONYMIC</th>
-        <td mat-cell *matCellDef="let row" class="fio row"> {{row.PATRONYMIC}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="IDPERSON">
-        <th mat-header-cell *matHeaderCellDef class="col">IDPERSON</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.IDPERSON}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="STATUSNAME">
-        <th mat-header-cell *matHeaderCellDef class="col">STATUSNAME</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.STATUSNAME}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="ACC1NUM">
-        <th mat-header-cell *matHeaderCellDef class="col">ACC1NUM</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.ACC1NUM}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="CARDTEMPLNAME">
-        <th mat-header-cell *matHeaderCellDef class="col">CARDTEMPLNAME</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.CARDTEMPLNAME}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="ORGNAMESHORT">
-        <th mat-header-cell *matHeaderCellDef class="col">ORGNAMESHORT</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.ORGNAMESHORT}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="PERSONTYPENAME">
-        <th mat-header-cell *matHeaderCellDef class="col">PERSONTYPENAME</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.PERSONTYPENAME}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="CURRNAME">
-        <th mat-header-cell *matHeaderCellDef class="col">CURRNAME</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.CURRNAME}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="IDCARD">
-        <th mat-header-cell *matHeaderCellDef class="col">IDCARD</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.IDCARD}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="BIRTHDATE">
-        <th mat-header-cell *matHeaderCellDef class="col">BIRTHDATE</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.BIRTHDATE}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="DOCSERIES">
-        <th mat-header-cell *matHeaderCellDef class="col">DOCSERIES</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.DOCSERIES}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="DOCNUM">
-        <th mat-header-cell *matHeaderCellDef class="col">DOCNUM</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.DOCNUM}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="IDTASKAUTHSTATUS">
-        <th mat-header-cell *matHeaderCellDef class="col">IDTASKAUTHSTATUS</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.IDTASKAUTHSTATUS}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="DOCTYPENAME">
-        <th mat-header-cell *matHeaderCellDef class="col">DOCTYPENAME</th>
-        <td mat-cell *matCellDef="let row" class="row"> {{row.DOCTYPENAME}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="DELETE">
-        <th mat-header-cell *matHeaderCellDef class="col"></th>
-        <td mat-cell *matCellDef="let row" class="del">
-          <a (click)="remove(row.IDCARD)">Удалить</a>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    </table>
-  </div>
-
-  <div>
-    <button
-      *ngIf= isAddData
-      mat-raised-button
-      color="primary"
-      class="butAdd"
-      (click)="setIsAddData()"
-    >
-      Добавить новую запись
-    </button>
-
-    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isAddData">
-
-      <div class="form-group">
-        <input
-          type="number"
-          id="N"
-          class="form-control"
-          ngModel
-          placeholder="N"
-          name="N"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="CARD"
-          class="form-control"
-          ngModel
-          placeholder="CARD"
-          name="CARD"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="LASTNAME"
-          class="form-control"
-          ngModel
-          placeholder="LASTNAME"
-          name="LASTNAME"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="FIRSTNAME"
-          class="form-control"
-          ngModel
-          placeholder="FIRSTNAME"
-          name="FIRSTNAME"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="PATRONYMIC"
-          class="form-control"
-          ngModel
-          placeholder="PATRONYMIC"
-          name="PATRONYMIC"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="number"
-          id="IDPERSON"
-          class="form-control"
-          ngModel
-          placeholder="IDPERSON"
-          name="IDPERSON"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="STATUSNAME"
-          class="form-control"
-          ngModel
-          placeholder="STATUSNAME"
-          name="STATUSNAME"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="ACC1NUM"
-          class="form-control"
-          ngModel
-          placeholder="ACC1NUM"
-          name="ACC1NUM"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="CARDTEMPLNAME"
-          class="form-control"
-          ngModel
-          placeholder="CARDTEMPLNAME"
-          name="CARDTEMPLNAME"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="ORGNAMESHORT"
-          class="form-control"
-          ngModel
-          placeholder="ORGNAMESHORT"
-          name="ORGNAMESHORT"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="PERSONTYPENAME"
-          class="form-control"
-          ngModel
-          placeholder="PERSONTYPENAME"
-          name="PERSONTYPENAME"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="CURRNAME"
-          class="form-control"
-          ngModel
-          placeholder="CURRNAME"
-          name="CURRNAME"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="number"
-          id="IDCARD"
-          class="form-control"
-          ngModel
-          placeholder="IDCARD"
-          name="IDCARD"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="BIRTHDATE"
-          class="form-control"
-          ngModel
-          placeholder="BIRTHDATE"
-          name="BIRTHDATE"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="DOCSERIES"
-          class="form-control"
-          ngModel
-          placeholder="DOCSERIES"
-          name="DOCSERIES"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="DOCNUM"
-          class="form-control"
-          ngModel
-          placeholder="DOCNUM"
-          name="DOCNUM"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="number"
-          id="IDTASKAUTHSTATUS"
-          class="form-control"
-          ngModel
-          placeholder="IDTASKAUTHSTATUS"
-          name="IDTASKAUTHSTATUS"
-          required>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="text"
-          id="DOCTYPENAME"
-          class="form-control"
-          ngModel
-          placeholder="DOCTYPENAME"
-          name="DOCTYPENAME"
-          required>
-      </div>
+    <div class="butAdd">
 
       <button
         mat-raised-button
         color="primary"
-        class="butAdd"
-        type="submit"
-        [disabled]="!authForm.valid"
+        (click)="setIsAddData()"
       >
-        Сохранить
+        Добавить новую запись
       </button>
 
-    </form>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="setIsBlock(false)"
+      >
+        Блочная структура
+      </button>
+
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="personsRes" id="test">
+
+        <ng-container
+          *ngFor="let person of displayedColumns"
+          matColumnDef="{{person}}">
+          <th mat-header-cell *matHeaderCellDef class="col" >{{person}}</th>
+          <td mat-cell *matCellDef="let row" class="row {{person}}">
+            <a *ngIf="person.valueOf() === 'DELETE'" (click)="remove(row.IDCARD)">
+              Удалить
+            </a>
+            <a *ngIf="person.valueOf() === 'EDIT'" (click)="edit(row.IDCARD)">
+              Редактировать
+            </a>
+            {{row[person]}}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+    </div>
 
   </div>
 
+  <app-add-person
+    [formColumns]="formColumns"
+    *ngIf="!isAddData"
+    (onAddPerson)="addPerson($event)"
+  ></app-add-person>
+
+  <app-edit-person
+    [formColumns]="formColumns"
+    [personEdit]="personEdit"
+    (onEditPerson)="editPerson($event)"
+    *ngIf="!isEditData"
+  ></app-edit-person>
+
+  <app-block-structure
+    [personRes]="personsRes"
+    (onSetIsBlock)="setIsBlock($event)"
+    *ngIf="!isBlock"
+  ></app-block-structure>
 
 </div>
-
 

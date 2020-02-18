@@ -6,13 +6,21 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule, MatTableModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import { AddPersonComponent } from './add-person/add-person.component';
+import { EditPersonComponent } from './edit-person/edit-person.component';
+import { BlockStructureComponent } from './block-structure/block-structure.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AddPersonComponent,
+    EditPersonComponent,
+    BlockStructureComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     NoopAnimationsModule,

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {PersonsService} from './persons.service';
-import {NgForm} from '@angular/forms';
+import { PersonsService} from './persons.service';
+
 
 @Component({
   selector: 'app-root',
@@ -15,45 +15,78 @@ export class AppComponent implements OnInit {
   personsRes = [];
   displayedColumns: string[] = ['N'];
   formColumns: string[] = ['N'];
+  personEdit = [];
+  idPersonEdit: string;
   isAddData: boolean = true;
+  isEditData: boolean = true;
+  isBlock: boolean = true;
+
+
 
   constructor(private personsService: PersonsService){};
 
   ngOnInit() {
-      this.personsService.getPersons().subscribe(res => {
-          this.personsRows = res['rows'];
-          this.personsMetaData = res['metaData'];
-          for(let j=0; j< this.personsRows.length; j++){
-            let rows = {'N':j+1};
-            for(let i = 0; i < this.personsMetaData.length; i ++) {
-              rows[this.personsMetaData[i].name] = this.personsRows[j][i];
-            }
-              this.personsRes.push(rows)
-          }
-          for (let i=0; i< this.personsMetaData.length; i ++) {
-            this.displayedColumns.push(this.personsMetaData[i].name);
-            this.formColumns.push(this.personsMetaData[i].name);
-          }
-          this.displayedColumns.push('DELETE');
-        }, error => alert(error)
-      );
+    this.personsRes = [];
+    this.displayedColumns = ['N'];
+    this.formColumns = ['N'];
+    this.getPersons();
+  }
+  
+  getPersons() {
+    this.personsService.getPersons().subscribe(res => {
+      this.personsRows = res['rows'];
+      this.personsMetaData = res['metaData'];
+      for(let i = 0; i < this.personsRows.length; i++){
+        let count = i + 1;
+        let rows = {'N':''+count};
+        for(let j = 0; j < this.personsMetaData.length; j ++) {
+          rows[this.personsMetaData[j].name] =''+ this.personsRows[i][j];
+        }
+        this.personsRes.push(rows);
+      }
+
+      for (let i = 0; i< this.personsMetaData.length; i ++) {
+        this.displayedColumns.push(this.personsMetaData[i].name);
+        this.formColumns.push(this.personsMetaData[i].name);
+      }
+
+      this.displayedColumns.push('EDIT');
+      this.displayedColumns.push('DELETE');
+      }, error => alert(error)
+    );
   }
 
   remove(id) {
     this.personsRes = this.personsRes
-      .filter(res => res['IDCARD'] !== id);
-    // this.personsService.deletePerson(id)
-    //   .subscribe(() => this.ngOnInit(),
-    //     error => alert(error))
+      .filter(res => res['IDCARD'] !==id);
   }
 
   setIsAddData() {
     this.isAddData = false;
   }
 
-  onSubmit(addForm: NgForm) {
-    const data = addForm.form.value;
-    this.personsRes.push(data);
+  addPerson(data) {
     this.isAddData = true;
+    this.personsRes.push(data);
+  }
+
+  editPerson(data) {
+    for(let i=0; i< this.personsRes.length; i ++) {
+      if(this.personsRes[i]['IDCARD'] === data['IDCARD']) {
+        this.personsRes[i] = data;
+      }
+    }
+    this.isEditData = true;
+  }
+
+  edit(id: string) {
+    this.idPersonEdit = id;
+    this.personEdit = this.personsRes
+      .filter(res => res['IDCARD'] == id);
+    this.isEditData = false;
+  }
+
+  setIsBlock(data) {
+    this.isBlock = data;
   }
 }
