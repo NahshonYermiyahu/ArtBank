@@ -1,0 +1,34 @@
+<div>
+
+  <header>
+    <h1>Добавить новую запись</h1>
+  </header>
+
+  <div>
+
+    <form #addForm="ngForm" (ngSubmit)="addPerson(addForm)">
+
+      <div class="form-group" *ngFor="let col of formColumns">
+        <input
+          class="form-control"
+          ngModel
+          name="{{col}}"
+          placeholder="{{col}}"
+          required
+        >
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!addForm.valid"
+      >
+        Сохранить
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

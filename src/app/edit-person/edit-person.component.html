@@ -1,0 +1,32 @@
+<div>
+
+  <header>
+    <h1>Редактировать данные</h1>
+  </header>
+
+  <div>
+
+    <form #editForm="ngForm" (ngSubmit)="editPerson(editForm)" >
+
+      <div class="form-group" *ngFor="let col of formColumns">
+        <input
+          class="form-control"
+          [ngModel]="personEdit[0][col]"
+          name="{{col}}"
+          required
+        >
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >
+        Сохранить
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

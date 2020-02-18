@@ -1,0 +1,12 @@
+.blocks {
+  display: grid;
+  grid-template-columns: 30% 30% 40%;
+  grid-template-rows: auto;
+  grid-auto-flow: row;
+}
+.item {
+  border: solid 2px blue;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+}

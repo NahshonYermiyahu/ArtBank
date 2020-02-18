@@ -1,0 +1,23 @@
+<div>
+
+  <header>
+    <h1>Блочная структура</h1>
+  </header>
+
+  <div class="butAdd">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="setIsBlock(true)"
+    >
+      Таблица данных
+    </button>
+  </div>
+
+  <div class="blocks" >
+    <div class="item" *ngFor="let person of persons">
+      <div *ngFor="let data of person">{{data[0]}} : {{data[1]}}</div>
+    </div>
+  </div>
+
+</div>
