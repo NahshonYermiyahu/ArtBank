@@ -10,25 +10,21 @@ import { PersonsService} from './persons.service';
 
 export class AppComponent implements OnInit {
 
-  personsRows = [];
-  personsMetaData = [];
-  personsRes = [];
-  displayedColumns: string[] = ['N'];
-  formColumns: string[] = ['N'];
-  personEdit = [];
+  personsRows = [];  // для получения из json массива rows
+  personsMetaData = [];   // для получения из json массива metaData
+  personsRes = [];  // для итогового преобразования
+  displayedColumns: string[] = ['N']; // имена колонок в табл
+  formColumns: string[] = ['N'];  // имена колонок в формах  добавления и редактирования
+  personEdit = [];  // для данных которые нужно редактировать
   idPersonEdit: string;
   isAddData: boolean = true;
   isEditData: boolean = true;
   isBlock: boolean = true;
 
 
-
   constructor(private personsService: PersonsService){};
 
   ngOnInit() {
-    this.personsRes = [];
-    this.displayedColumns = ['N'];
-    this.formColumns = ['N'];
     this.getPersons();
   }
   
@@ -44,16 +40,19 @@ export class AppComponent implements OnInit {
         }
         this.personsRes.push(rows);
       }
-
-      for (let i = 0; i< this.personsMetaData.length; i ++) {
-        this.displayedColumns.push(this.personsMetaData[i].name);
-        this.formColumns.push(this.personsMetaData[i].name);
-      }
-
-      this.displayedColumns.push('EDIT');
-      this.displayedColumns.push('DELETE');
+      this.getColumns(this.personsMetaData);
       }, error => alert(error)
     );
+  }
+
+  //получение колонок для табл и формы
+  getColumns(data) {
+    for (let i = 0; i< data.length; i ++) {
+      this.displayedColumns.push(data[i].name);
+      this.formColumns.push(data[i].name);
+    }
+    this.displayedColumns.push('EDIT');
+    this.displayedColumns.push('DELETE');
   }
 
   remove(id) {
@@ -70,6 +69,7 @@ export class AppComponent implements OnInit {
     this.personsRes.push(data);
   }
 
+  //замена исходного на редактированный
   editPerson(data) {
     for(let i=0; i< this.personsRes.length; i ++) {
       if(this.personsRes[i]['IDCARD'] === data['IDCARD']) {
@@ -79,6 +79,7 @@ export class AppComponent implements OnInit {
     this.isEditData = true;
   }
 
+  //получение данных для редактирования
   edit(id: string) {
     this.idPersonEdit = id;
     this.personEdit = this.personsRes
